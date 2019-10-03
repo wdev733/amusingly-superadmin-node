@@ -27,7 +27,7 @@ const config = {
     masterKey: requireProcessEnv('MASTER_KEY'),
     jwtSecret: requireProcessEnv('JWT_SECRET'),
     websiteUrl: process.env.WEBSITE_URL || 'http://localhost:9000',
-    mysql: {
+    db: {
       host: process.env.MYSQL_HOST || 'localhost:3306',
       user: process.env.MYSQL_USER || 'root',
       password: process.env.MYSQL_PASSWORD || '',
