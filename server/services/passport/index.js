@@ -3,16 +3,17 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { jwtSecret, masterKey } from '../../config';
+
 import Account from '../../api/account/model';
 
 export const password = () => async (req, res, next) => {
-  const { email, password } = req.body;
-  const account = await Account.findOne({ email }).select('+password');
+  const { username, password } = req.body;
+  const account = await Account.getUserInfoByUserName(username);
   if (!account) {
     return res.status(404).json({ message: 'Email not found' });
   }
 
-  if (!account.authenticate(password)) {
+  if (!Account.checkPassword(account, password)) {
     return res.status(400).json({ message: 'Email or Password is incorrect.' });
   }
 
@@ -56,24 +57,23 @@ export const extractJwt = ({ required } = {}) => (req, res, next) =>
 passport.use(
   new LocalStrategy(
     {
-      usernameField: 'email',
+      usernameField: 'username',
       passwordField: 'password' // this is the virtual field on the model
     },
-    (email, password, done) => {
-      Account.findOne({ email })
-        .select('+password')
-        .then(account => {
-          if (!account) {
-            done(true);
-            return null;
-          }
-          if (!account.authenticate(password)) {
-            return done(null, false, {
-              message: 'Email or Password is incorrect.'
-            });
-          }
-          return done(null, account);
+    async (username, password, done) => {
+      const account = await Account.getUserInfoByUserName(username);
+      if (!account) {
+        done(true);
+        return null;
+      }
+
+      if (!Account.checkPassword(account, password)) {
+        return done(null, false, {
+          message: 'Email or Password is incorrect.'
         });
+      }
+
+      return done(null, account);
     }
   )
 );
@@ -100,13 +100,10 @@ passport.use(
         ExtractJwt.fromAuthHeaderWithScheme('Bearer')
       ])
     },
-    ({ _id }, done) => {
-      Account.findById(_id)
-        .then(account => {
-          done(null, account);
-          return null;
-        })
-        .catch(done);
+    async ({ _id }, done) => {
+      const account = await Account.getUserInfoById(_id);
+      done(null, account);
+      return null;
     }
   )
 );
