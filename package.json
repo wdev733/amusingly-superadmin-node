@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node .",
     "test": "jest",
+    "build": "babel src -s -D -d dist --presets es2015,stage-1",
     "coverage": "npm test -- --coverage",
     "postcoverage": "opn coverage/lcov-report/index.html",
     "dev": "nodemon -i \"*.test.js\" .",
@@ -64,6 +65,7 @@
     "querymen": "^2.1.3",
     "rand-token": "^0.4.0",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "swagger-ui-express": "^4.1.1"
   }
 }

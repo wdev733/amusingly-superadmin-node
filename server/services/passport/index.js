@@ -10,11 +10,11 @@ export const password = () => async (req, res, next) => {
   const { username, password } = req.body;
   const account = await Account.getUserInfoByUserName(username);
   if (!account) {
-    return res.status(404).json({ message: 'Email not found' });
+    return res.status(404).json({ message: 'UserName not found' });
   }
 
   if (!Account.checkPassword(account, password)) {
-    return res.status(400).json({ message: 'Email or Password is incorrect.' });
+    return res.status(400).json({ message: 'UserName or Password is incorrect.' });
   }
 
   req.logIn(account, { session: false }, err => {
@@ -69,7 +69,7 @@ passport.use(
 
       if (!Account.checkPassword(account, password)) {
         return done(null, false, {
-          message: 'Email or Password is incorrect.'
+          message: 'UserName or Password is incorrect.'
         });
       }
 

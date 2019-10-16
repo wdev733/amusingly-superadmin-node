@@ -3,14 +3,15 @@ import { env, port, ip, apiRoot } from './config';
 import express from './services/express';
 import api from './api';
 
-const database = require('./services/mysql');
+import swaggerUi from 'swagger-ui-express';
+import * as swaggerDocument from './swagger.json';
 
 const app = express(apiRoot, api);
 const server = http.createServer(app);
 
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.get('/', async (req, res) => {
-  const links = await database.query("SELECT count(*) as cnt FROM admin");
-  console.log(links[0].cnt);
   res.send('<h2>Amusingly</h2>');
 });
 
