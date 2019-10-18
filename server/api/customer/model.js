@@ -31,7 +31,7 @@ const getCustomerListWithInsta = async customerId => {
     'select customer.`Name`, customer.`LastSync`,  customer_insta.* from customer' +
     ' inner join customer_insta on' +
     "(customer.CustomerID = customer_insta.CustomerID AND customer_insta.CustomerID = '" + customerId + "')" +
-    ' ORDER BY customer_insta.`CustomerInstaID` DESC');
+    ' ORDER BY customer_insta.`CustomerInstaID` DESC Limit 10');
 
   if (customerList.length === 0) {
     return false;

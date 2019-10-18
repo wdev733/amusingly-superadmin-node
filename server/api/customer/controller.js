@@ -17,7 +17,7 @@ export const getCustomer = async (req, res, next) => {
 export const getCustomerList = async (req, res, next) => {
   try {
     let customerList = await Customer.getCustomerList();
-    handleSuccess(res, { count: customerList });
+    handleSuccess(res, { data: customerList });
   } catch (err) {
     handleError(res, err);
   }
