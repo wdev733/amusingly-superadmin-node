@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { getCustomer, getCustomerList, updateCustomerStatus, getCustomerWithInstaList } from './controller';
+import { 
+  getCustomer,
+  getCustomerList,
+  updateCustomerStatus,
+  getCustomerWithInstaList,
+  addNewCustomer } from './controller';
 import { token } from '../../services/passport';
 
 const router = new Router();
@@ -58,6 +63,20 @@ router.post(
     required: true
   }),
   updateCustomerStatus
+);
+
+/**
+ * @api {post} /api/customer/add Add New Customer
+ * @apiName Add New Customer
+ * @apiGroup customer
+ * @apiSuccess {boolean} result
+ */
+router.post(
+  '/add',
+  token({
+    required: true
+  }),
+  addNewCustomer
 );
 
 export default router;

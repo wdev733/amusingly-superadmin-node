@@ -40,11 +40,61 @@ const getCustomerListWithInsta = async customerId => {
   }
 };
 
+const checkCustomerNameDuplicate = async (customerId, userName) => {
+  const ret = await database.query("select count(CustomerID) as cnt from customer where UserName='" + userName + "'" +
+      ' AND CustomerID <> ' + customerId);
+  return ret[0].cnt;
+};
+
+const checkCustomerEmailDuplicate = async (customerId, eMail) => {
+  const ret = await database.query("select count(CustomerID) as cnt from customer where Email='" + eMail + "'" +
+    ' AND CustomerID <> ' + customerId);
+  return ret[0].cnt;
+};
+
+const addNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
+  City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, Status, autosyscro) => {
+
+  let query = 'Insert into customer (CustomerID, UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2, ' +
+    'City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, LastLogin, LastSync, Status, autosyscro) value ' +
+    '(' +
+    "'" + CustomerID + "', " +
+    "'" + UserName + "', " +
+    "'" + Password + "', " +
+    "'" + Name + "', " +
+    "'" + Email + "', " +
+    "'" + Phone + "', " +
+    "'" + BillingAddress1 + "', " +
+    "'" + BillingAddress2 + "', " +
+    "'" + City + "', " +
+    "'" + Country + "', " +
+    "'" + State + "', " +
+    "'" + InstaProfileName + "', " +
+    "'" + SalesRep + "', " +
+    "'" + UrlKey + "', " +
+    "'" + InstaUserId + "', " +
+    "'" + AccessToken + "', " +
+    "'" + ProfileLogo + "', " +
+    "'0000-00-00', " +
+    "'0000-00-00', " +
+    "'" + Status + "', " +
+    "'" + autosyscro + "'" +
+    ')';
+
+  console.log(query);
+
+  const ret = await database.query(query);
+  return ret;
+};
+
 const Customer = {
   getCustomerById,
   getCustomerList,
   updateCustomerStatus,
-  getCustomerListWithInsta
+  getCustomerListWithInsta,
+  checkCustomerNameDuplicate,
+  checkCustomerEmailDuplicate,
+  addNewCustomer
 };
 
 export default Customer;
