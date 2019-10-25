@@ -55,10 +55,9 @@ const checkCustomerEmailDuplicate = async (customerId, eMail) => {
 const addNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
   City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, Status, autosyscro) => {
 
-  let query = 'Insert into customer (CustomerID, UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2, ' +
+  let query = 'Insert into customer (UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2, ' +
     'City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, LastLogin, LastSync, Status, autosyscro) value ' +
     '(' +
-    "'" + CustomerID + "', " +
     "'" + UserName + "', " +
     "'" + Password + "', " +
     "'" + Name + "', " +
@@ -74,7 +73,7 @@ const addNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phone
     "'" + UrlKey + "', " +
     "'" + InstaUserId + "', " +
     "'" + AccessToken + "', " +
-    "'" + ProfileLogo + "', " +
+    "'" + '' + "', " +
     "'0000-00-00', " +
     "'0000-00-00', " +
     "'" + Status + "', " +
