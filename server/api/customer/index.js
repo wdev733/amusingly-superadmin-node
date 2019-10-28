@@ -4,7 +4,8 @@ import {
   getCustomerList,
   updateCustomerStatus,
   getCustomerWithInstaList,
-  addNewCustomer } from './controller';
+  addNewCustomer,
+  editNewCustomer } from './controller';
 import { token } from '../../services/passport';
 
 const router = new Router();
@@ -77,6 +78,14 @@ router.post(
     required: true
   }),
   addNewCustomer
+);
+
+router.post(
+  '/edit',
+  token({
+    required: true
+  }),
+  editNewCustomer
 );
 
 export default router;

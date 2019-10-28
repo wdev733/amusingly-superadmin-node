@@ -6,6 +6,8 @@ import morgan from 'morgan';
 import { errorHandler as queryErrorHandler } from 'querymen';
 import { errorHandler as bodyErrorHandler } from 'bodymen';
 import { env } from '../../config';
+const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 
 export default (apiRoot, routes) => {
   const app = express();
@@ -19,11 +21,14 @@ export default (apiRoot, routes) => {
     app.use(morgan('dev'));
   }
 
+  app.use(cors());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(apiRoot, routes);
   app.use(queryErrorHandler());
   app.use(bodyErrorHandler());
+  app.use(cookieParser());
+  app.use(fileUpload());
 
   return app;
 };

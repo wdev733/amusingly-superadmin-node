@@ -47,7 +47,6 @@ export const getCustomerWithInstaList = async (req, res, next) => {
 
 export const addNewCustomer = async (req, res, next) => {
   try {
-
     let CustomerID = req.body.CustomerID;
     let UserName = req.body.UserName;
     let Password = req.body.Password;
@@ -69,6 +68,22 @@ export const addNewCustomer = async (req, res, next) => {
     let autosyscro = req.body.autosyscro;
 
     let data = {};
+
+    let fileName = '';
+
+    // let imageFile = req.files.file;
+    // imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, function (err) {
+    //   if (err) {
+    //     data = {
+    //       result: false, message: 'Uploading photo has failed'
+    //     };
+    //     handleSuccess(res, { data });
+    //     return;
+    //   }
+
+    //   fileName = 'public/' + UserName + new Date().getTime() + '.jpg';
+    // });
+
     let userNameUniqueCheck = await Customer.checkCustomerNameDuplicate(CustomerID, UserName);
     if (userNameUniqueCheck !== 0) {
       data = {
@@ -97,7 +112,7 @@ export const addNewCustomer = async (req, res, next) => {
     }
 
     await Customer.addNewCustomer(UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
-      City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, Status, autosyscro);
+      City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, fileName, Status, autosyscro);
 
     data = {
       result: true, message: 'Success'

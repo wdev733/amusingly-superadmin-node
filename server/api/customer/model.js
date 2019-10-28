@@ -79,7 +79,7 @@ const addNewCustomer = async (UserName, Password, Name, Email, Phone, BillingAdd
     "'" + UrlKey + "', " +
     "'" + InstaUserId + "', " +
     "'" + AccessToken + "', " +
-    "'" + '' + "', " +
+    "'" + ProfileLogo + "', " +
     "'0000-00-00', " +
     "'0000-00-00', " +
     "'" + Status + "', " +
@@ -99,6 +99,7 @@ const Customer = {
   getCustomerListWithInsta,
   checkCustomerNameDuplicate,
   checkCustomerEmailDuplicate,
+  checkCustomerUrlKeyDuplicate,
   addNewCustomer
 };
 
