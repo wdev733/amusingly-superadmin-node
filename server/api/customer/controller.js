@@ -126,4 +126,5 @@ export const addNewCustomer = async (req, res, next) => {
   } catch (err) {
     handleError(res, err);
   }
+
 };
