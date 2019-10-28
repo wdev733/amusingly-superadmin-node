@@ -74,6 +74,8 @@ export const addNewCustomer = async (req, res, next) => {
       data = {
         result: false, message: 'UserName must be unique'
       };
+      handleSuccess(res, { data });
+      return;
     }
 
     let userEmailUniqueCheck = await Customer.checkCustomerEmailDuplicate(CustomerID, Email);
@@ -81,11 +83,25 @@ export const addNewCustomer = async (req, res, next) => {
       data = {
         result: false, message: 'Email must be unique'
       };
+      handleSuccess(res, { data });
+      return;
     }
 
-    await Customer.addNewCustomer(CustomerID, UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
+    let userUrlKeyUniqueCheck = await Customer.checkCustomerUrlKeyDuplicate(CustomerID, UrlKey);
+    if (userUrlKeyUniqueCheck !== 0) {
+      data = {
+        result: false, message: 'UrlKey must be unique'
+      };
+      handleSuccess(res, { data });
+      return;
+    }
+
+    await Customer.addNewCustomer(UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
       City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, Status, autosyscro);
 
+    data = {
+      result: true, message: 'Success'
+    };
     handleSuccess(res, { data });
 
     // console.log(userNameUniqueCheck);

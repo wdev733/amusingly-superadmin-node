@@ -52,7 +52,13 @@ const checkCustomerEmailDuplicate = async (customerId, eMail) => {
   return ret[0].cnt;
 };
 
-const addNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
+const checkCustomerUrlKeyDuplicate = async (customerId, UrlKey) => {
+  const ret = await database.query("select count(CustomerID) as cnt from customer where UrlKey='" + UrlKey + "'" +
+    ' AND CustomerID <> ' + customerId);
+  return ret[0].cnt;
+};
+
+const addNewCustomer = async (UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
   City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, Status, autosyscro) => {
 
   let query = 'Insert into customer (UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2, ' +
