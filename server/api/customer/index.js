@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { 
+import {
   getCustomer,
   getCustomerList,
   updateCustomerStatus,
   getCustomerWithInstaList,
   addNewCustomer,
-  editNewCustomer } from './controller';
+  editCustomer,
+  deleteCustomer } from './controller';
 import { token } from '../../services/passport';
 
 const router = new Router();
@@ -85,7 +86,15 @@ router.post(
   token({
     required: true
   }),
-  editNewCustomer
+  editCustomer
+);
+
+router.post(
+  '/delete',
+  token({
+    required: true
+  }),
+  deleteCustomer
 );
 
 export default router;

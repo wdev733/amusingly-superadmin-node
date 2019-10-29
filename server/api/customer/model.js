@@ -26,6 +26,10 @@ const updateCustomerStatus = async (customerId, status) => {
   }
 };
 
+const deleteCustomer = async (customerId) => {
+  await database.query("delete from customer where CustomerID = '" + customerId + "'");
+};
+
 const getCustomerListWithInsta = async customerId => {
   const customerList = await database.query(
     'select customer.`Name`, customer.`LastSync`,  customer_insta.* from customer' +
@@ -92,6 +96,35 @@ const addNewCustomer = async (UserName, Password, Name, Email, Phone, BillingAdd
   return ret;
 };
 
+const editNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
+  City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, Status, autosyscro) => {
+
+  let query = 'UPDATE customer SET ' +
+    "UserName = '" + UserName + "', " +
+    "Password = '" + UserName + "', " +
+    "Name = '" + UserName + "', " +
+    "Phone = '" + UserName + "', " +
+    "BillingAddress1 = '" + UserName + "', " +
+    "BillingAddress2 = '" + UserName + "', " +
+    "City = '" + UserName + "', " +
+    "Country = '" + UserName + "', " +
+    "State = '" + UserName + "', " +
+    "InstaProfileName = '" + UserName + "', " +
+    "SalesRep = '" + UserName + "', " +
+    "UrlKey = '" + UserName + "', " +
+    "InstaUserId = '" + UserName + "', " +
+    "AccessToken = '" + UserName + "', " +
+    "ProfileLogo = '" + UserName + "', " +
+    "Status = '" + UserName + "', " +
+    "autosyscro = '" + UserName + "' " +
+    "WHERE CustomerID = '" + CustomerID + "'";
+
+  console.log(query);
+
+  const ret = await database.query(query);
+  return ret;
+};
+
 const Customer = {
   getCustomerById,
   getCustomerList,
@@ -100,7 +133,9 @@ const Customer = {
   checkCustomerNameDuplicate,
   checkCustomerEmailDuplicate,
   checkCustomerUrlKeyDuplicate,
-  addNewCustomer
+  addNewCustomer,
+  editNewCustomer,
+  deleteCustomer
 };
 
 export default Customer;
