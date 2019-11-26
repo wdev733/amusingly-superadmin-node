@@ -1,5 +1,5 @@
-import { sign } from '../../services/jwt';
-import { handleError, handleSuccess } from '../../services/response/';
+import { sign } from '../../../services/jwt';
+import { handleError, handleSuccess } from '../../../services/response';
 
 export const login = async ({ user }, res, next) => {
   try {

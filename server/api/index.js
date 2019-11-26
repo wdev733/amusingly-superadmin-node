@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import account from './account';
-import admin from './admin';
-import customer from './customer';
-import insta_images from './insta_images';
+import account from './v_admin/account';
+import admin from './v_admin/admin';
+import customer from './v_admin/customer';
+import insta_images from './v_admin/insta_images';
 
 const router = new Router();
 

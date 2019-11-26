@@ -1,4 +1,4 @@
-const database = require('../../services/mysql');
+const database = require('../../../services/mysql');
 
 const getAdminList = async () => {
   const adminList = await database.query('SELECT * FROM admin order by LastName, FirstName');

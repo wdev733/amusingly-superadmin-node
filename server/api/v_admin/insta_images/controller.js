@@ -1,4 +1,4 @@
-import { notFound, handleError, handleSuccess } from '../../services/response/';
+import { notFound, handleError, handleSuccess } from '../../../services/response/';
 import Customer from './model';
 
 export const getCustomerInstaById = async (req, res, next) => {

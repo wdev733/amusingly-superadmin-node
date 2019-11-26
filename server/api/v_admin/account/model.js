@@ -1,4 +1,4 @@
-const database = require('../../services/mysql');
+const database = require('../../../services/mysql');
 
 const getUserInfoByUserName = async userName => {
   const admin = await database.query("SELECT * FROM admin where UserName='" + userName + "'");

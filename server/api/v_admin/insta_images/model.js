@@ -1,4 +1,4 @@
-const database = require('../../services/mysql');
+const database = require('../../../services/mysql');
 
 const getCustomerInstaById = async customerInstaId => {
   const customerInstaList = await database.query("select * from customer_insta where CustomerInstaID = '" + customerInstaId + "'");

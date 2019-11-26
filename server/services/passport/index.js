@@ -4,7 +4,7 @@ import { Strategy as BearerStrategy } from 'passport-http-bearer';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { jwtSecret, masterKey } from '../../config';
 
-import Account from '../../api/account/model';
+import Account from '../../api/v_admin/account/model';
 
 export const password = () => async (req, res, next) => {
   const { username, password } = req.body;

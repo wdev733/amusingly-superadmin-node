@@ -1,4 +1,4 @@
-import { notFound, handleError, handleSuccess } from '../../services/response/';
+import { notFound, handleError, handleSuccess } from '../../../services/response/';
 import Customer from './model';
 
 export const getCustomer = async (req, res, next) => {

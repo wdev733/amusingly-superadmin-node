@@ -1,4 +1,4 @@
-import { notFound, handleError, handleSuccess } from '../../services/response/';
+import { notFound, handleError, handleSuccess } from '../../../services/response/';
 import Admin from './model';
 
 export const getAdminList = async (req, res, next) => {

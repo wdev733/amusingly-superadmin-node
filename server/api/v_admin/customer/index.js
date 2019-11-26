@@ -7,7 +7,7 @@ import {
   addNewCustomer,
   editCustomer,
   deleteCustomer } from './controller';
-import { token } from '../../services/passport';
+import { token } from '../../../services/passport';
 
 const router = new Router();
 
