@@ -101,28 +101,41 @@ const editNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phon
 
   let query = 'UPDATE customer SET ' +
     "UserName = '" + UserName + "', " +
-    "Password = '" + UserName + "', " +
-    "Name = '" + UserName + "', " +
-    "Phone = '" + UserName + "', " +
-    "BillingAddress1 = '" + UserName + "', " +
-    "BillingAddress2 = '" + UserName + "', " +
-    "City = '" + UserName + "', " +
-    "Country = '" + UserName + "', " +
-    "State = '" + UserName + "', " +
-    "InstaProfileName = '" + UserName + "', " +
-    "SalesRep = '" + UserName + "', " +
-    "UrlKey = '" + UserName + "', " +
-    "InstaUserId = '" + UserName + "', " +
-    "AccessToken = '" + UserName + "', " +
-    "ProfileLogo = '" + UserName + "', " +
-    "Status = '" + UserName + "', " +
-    "autosyscro = '" + UserName + "' " +
+    "Password = '" + Password + "', " +
+    "Name = '" + Name + "', " +
+    "Email = '" + Email + "', " +
+    "Phone = '" + Phone + "', " +
+    "BillingAddress1 = '" + BillingAddress1 + "', " +
+    "BillingAddress2 = '" + BillingAddress2 + "', " +
+    "City = '" + City + "', " +
+    "Country = '" + Country + "', " +
+    "State = '" + State + "', " +
+    "InstaProfileName = '" + InstaProfileName + "', " +
+    "SalesRep = '" + SalesRep + "', " +
+    "UrlKey = '" + UrlKey + "', " +
+    "InstaUserId = '" + InstaUserId + "', " +
+    "AccessToken = '" + AccessToken + "', " +
+    "ProfileLogo = '" + ProfileLogo + "', " +
+    "Status = '" + Status + "', " +
+    "autosyscro = '" + autosyscro + "' " +
     "WHERE CustomerID = '" + CustomerID + "'";
 
   console.log(query);
 
   const ret = await database.query(query);
   return ret;
+};
+
+const getCustomerByUserNameAndPassword = async (userName, password) => {
+  let query = "SELECT * FROM customer Where UserName = '" + userName + "' " +
+          " AND Password = '" + password + "' and Status = 1";
+
+  const customerList = await database.query(query);
+  if (customerList.length === 0) {
+    return false;
+  } else {
+    return customerList[0];
+  }
 };
 
 const Customer = {
@@ -135,7 +148,8 @@ const Customer = {
   checkCustomerUrlKeyDuplicate,
   addNewCustomer,
   editNewCustomer,
-  deleteCustomer
+  deleteCustomer,
+  getCustomerByUserNameAndPassword
 };
 
 export default Customer;
