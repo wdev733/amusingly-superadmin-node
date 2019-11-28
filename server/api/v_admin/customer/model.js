@@ -65,7 +65,7 @@ const checkCustomerUrlKeyDuplicate = async (customerId, UrlKey) => {
 const addNewCustomer = async (UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
   City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, Status, autosyscro) => {
 
-  let query = 'Insert into customer (UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2, ' +
+  const query = 'Insert into customer (UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2, ' +
     'City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, LastLogin, LastSync, Status, autosyscro) value ' +
     '(' +
     "'" + UserName + "', " +
@@ -90,8 +90,6 @@ const addNewCustomer = async (UserName, Password, Name, Email, Phone, BillingAdd
     "'" + autosyscro + "'" +
     ')';
 
-  console.log(query);
-
   const ret = await database.query(query);
   return ret;
 };
@@ -99,7 +97,7 @@ const addNewCustomer = async (UserName, Password, Name, Email, Phone, BillingAdd
 const editNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phone, BillingAddress1, BillingAddress2,
   City, Country, State, InstaProfileName, SalesRep, UrlKey, InstaUserId, AccessToken, ProfileLogo, Status, autosyscro) => {
 
-  let query = 'UPDATE customer SET ' +
+  const query = 'UPDATE customer SET ' +
     "UserName = '" + UserName + "', " +
     "Password = '" + Password + "', " +
     "Name = '" + Name + "', " +
@@ -120,8 +118,6 @@ const editNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phon
     "autosyscro = '" + autosyscro + "' " +
     "WHERE CustomerID = '" + CustomerID + "'";
 
-  console.log(query);
-
   const ret = await database.query(query);
   return ret;
 };
@@ -129,7 +125,7 @@ const editNewCustomer = async (CustomerID, UserName, Password, Name, Email, Phon
 const getCustomerByUserNameAndPassword = async (userName, password) => {
   let query = "SELECT * FROM customer Where UserName = '" + userName + "' " +
           " AND Password = '" + password + "' and Status = 1";
-
+  
   const customerList = await database.query(query);
   if (customerList.length === 0) {
     return false;
@@ -137,6 +133,16 @@ const getCustomerByUserNameAndPassword = async (userName, password) => {
     return customerList[0];
   }
 };
+
+const getCustomerByAccessToken = async accessToken => {
+  let query = "SELECT * FROM customer WHERE AccessToken = '" + accessToken + "' AND status = 1";
+  const customerList = await database.query(query);
+  if (customerList.length === 0) {
+    return false;
+  } else {
+    return customerList[0];
+  }
+}
 
 const Customer = {
   getCustomerById,
@@ -149,7 +155,8 @@ const Customer = {
   addNewCustomer,
   editNewCustomer,
   deleteCustomer,
-  getCustomerByUserNameAndPassword
+  getCustomerByUserNameAndPassword,
+  getCustomerByAccessToken
 };
 
 export default Customer;

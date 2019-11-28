@@ -1,15 +1,23 @@
 import { Router } from 'express';
-import { getCustomerByUserNameAndPassword } from '../../v_admin/customer/model';
-import { login } from './controller';
+import { login, loginByAccessToken } from './controller';
+import { token } from '../../../services/passport';
 
 const router = new Router();
 
 /**
- * @api {post} /api/account/login Account Login
+ * @api {post} /api/client/login Client Login
  * @apiName Authenticate
- * @apiGroup account
- * @apiParam {email, password}
+ * @apiGroup client
+ * @apiParam {username, password}
  */
-router.post('/login', getCustomerByUserNameAndPassword(), login);
+router.post('/login', login);
+
+/**
+ * @api {post} /api/client/login-token Client Login
+ * @apiName Authenticate
+ * @apiGroup client
+ * @apiParam { accessToken }
+ */
+router.post('/login-token', loginByAccessToken);
 
 export default router;

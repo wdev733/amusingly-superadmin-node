@@ -3,6 +3,11 @@ export const handleSuccess = (res, result = {}, status = 200) => {
   return res.status(status || 200).json({ success: true, ...result });
 };
 
+export const handleLogout = (res, status = 200) => {
+  // if (entity) {
+  return res.status(status || 200).json({ success: false, code: '401' });
+};
+
 export const notFound = res => {
   res.status(404).end();
   return null;
