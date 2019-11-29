@@ -57,12 +57,19 @@ const addNewInstaPostLink = async (instaId, customerId, url1, url2, url3, url4, 
   return ret;
 };
 
+const updateInstaImageStatus = async (instaId, status) => {
+  const query = "UPDATE customer_insta SET Status = '" + status + "' WHERE CustomerInstaID = '" + instaId + "'";
+  const ret = await database.query(query);
+  return ret;
+};
+
 const CustomerInsta = {
   getCustomerInstaById,
   deleteCustomInstaByCustomerId,
   getInstaPostLink,
   updateInstaPostLink,
-  addNewInstaPostLink
+  addNewInstaPostLink,
+  updateInstaImageStatus
 };
 
 export default CustomerInsta;
