@@ -73,7 +73,6 @@ const updateWidget = async (embed_id, backcolor, txtcolor, popup, socialsharing,
     "thumbnail = '" + thumbnail + "', " +
     "layout_row = '" + layout_row + "', " +
     "layout_column = '" + layout_column + "', " +
-    "InstaProfileName = '" + InstaProfileName + "', " +
     "hover_effect = '" + hover_effect + "', " +
     "embed_padding = '" + embed_padding + "', " +
     "embed_width = '" + embed_width + "' " +

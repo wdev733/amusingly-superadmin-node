@@ -53,10 +53,10 @@ export const addNewWidget = async (req, res, next) => {
     }
 
     const { backcolor, txtcolor, popup, socialsharing, widget_type, widget_style, widget_fullpage, thumbnail,
-      layout_row, layout_column, hover_effect, embed_padding } = req.body;
+      layout_row, layout_column, hover_effect, embed_padding, embed_width } = req.body;
 
     await Widget.addNewWidget(customer.CustomerID, 0, backcolor, txtcolor, popup, socialsharing, widget_type, 
-      widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding);
+      widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width);
 
     handleSuccess(res, { });
   } catch (err) {
