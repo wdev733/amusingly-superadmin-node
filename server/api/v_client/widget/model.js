@@ -13,8 +13,7 @@ const getWidgetListByCustomerID = async (customerId) => {
 };
 
 const getWidgetById = async (widgetId) => {
-  
-  const query = "SELECT * FROM customer_embed_widget WHERE embed_id = " + widgetId;
+  const query = 'SELECT * FROM customer_embed_widget WHERE embed_id = ' + widgetId;
 
   const widgetList = await database.query(query);
   if (widgetList.length === 0) {
@@ -26,7 +25,7 @@ const getWidgetById = async (widgetId) => {
 
 const deleteWidgetById = async (widgetId) => {
   
-  const query = "DELETE FROM customer_embed_widget WHERE embed_id = " + widgetId;
+  const query = 'DELETE FROM customer_embed_widget WHERE embed_id = ' + widgetId;
   const ret = await database.query(query);
   return ret;
 };
@@ -55,7 +54,7 @@ const addNewWidget = async (customer_id, customer_insta_id, backcolor, txtcolor,
     ')';
 
   const ret = await database.query(query);
-  return ret;
+  return ret.insertId;
     
 };
 
@@ -78,8 +77,41 @@ const updateWidget = async (embed_id, backcolor, txtcolor, popup, socialsharing,
     "embed_width = '" + embed_width + "' " +
     "WHERE embed_id = '" + embed_id + "'";
 
-  console.log(query);
+    const ret = await database.query(query);
 
+  return ret;
+};
+
+// Images For Embed Widget
+const getImagesForWidget = async widgetId => {
+  const query =
+    "SELECT * FROM embed_widget_images WHERE widget_id = '" + widgetId + "'";
+
+  const imageList = await database.query(query);
+  if (imageList.length === 0) {
+    return false;
+  } else {
+    return imageList;
+  }
+};
+
+const insertImagesForWidget = async (widgetId, imageIdList) => {
+  let query = 'INSERT INTO embed_widget_images (widget_id, image_id) value';
+  if (imageIdList.length > 0) {
+    for (let i = 0; i < imageIdList.length; i++) {
+      if (i !== 0) {
+        query += ',';
+      }
+      query += "('" + widgetId + "', '" + imageIdList[i] + "')";
+    }
+    const ret = await database.query(query);
+    return ret;
+  }
+  return false;
+};
+
+const deleteImagesForWidget = async widgetId => {
+  const query = "DELETE FROM embed_widget_images embed_widget_images WHERE widget_id ='" + widgetId + "'";
   const ret = await database.query(query);
   return ret;
 };
@@ -89,7 +121,10 @@ const Widget = {
   getWidgetById,
   deleteWidgetById,
   addNewWidget,
-  updateWidget
+  updateWidget,
+  getImagesForWidget,
+  insertImagesForWidget,
+  deleteImagesForWidget
 };
 
 export default Widget;
