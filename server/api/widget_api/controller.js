@@ -13,11 +13,11 @@ export const getWidgetByKey = async (req, res, next) => {
       var html = '<h1>hello, this is widget ' + key + '</h1>';
 
       var result = {
-        'result': html
+        'html': html
       };
 
-      res.end(callback + '(' + JSON.stringify(result) + ')');
-      
+      res.end(callback + '(' + JSON.stringify(result) + ');');
+
     } else {
       handleSuccess(res);
     }
