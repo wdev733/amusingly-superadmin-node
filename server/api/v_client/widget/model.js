@@ -147,6 +147,34 @@ const getWidgetSyncImages = async widgetId => {
   }
 };
 
+const getWidgetSyncSliderImages = async widgetId => {
+  const query = 'SELECT ' +
+    ' ci.CustomerInstaID, c.ProfileLogo, c.InstaProfileName, ci.ImageID, ci.VideoUrl, ci.Link, ci.RefUrl, ci.ImageInstaUrl, c.Name, ' +
+    ' ci.ImageCaption, ' +
+    ' irp.link1_url, irp.link1_title, irp.link1_image, ' +
+    ' irp.link2_url, irp.link2_title, irp.link2_image, ' +
+    ' irp.link3_url, irp.link3_title, irp.link3_image, ' +
+    ' irp.link4_url, irp.link4_title, irp.link4_image, ' +
+    ' irp.link5_url, irp.link5_title, irp.link5_image, ' +
+    ' irp.link6_url, irp.link6_title, irp.link6_image ' +
+    ' FROM embed_widget_images ewi ' +
+    ' LEFT JOIN customer_insta ci on ewi.image_id = ci.CustomerInstaID ' +
+    ' LEFT JOIN insta_related_post irp on irp.customer_insta_id = ci.CustomerInstaID ' +
+    ' LEFT JOIN customer c on ci.CustomerID = c.CustomerID ' +
+    ' WHERE TRUE' +
+    " AND ewi.widget_id = '" + widgetId + "' " +
+    ' AND ci.Status = 1' +
+    ' ORDER BY ci.ImageDate DESC LIMIT 10';
+
+  const imageList = await database.query(query);
+
+  if (imageList.length === 0) {
+    return false;
+  } else {
+    return imageList;
+  }
+};
+
 const Widget = {
   getWidgetListByCustomerID,
   getWidgetById,
@@ -157,7 +185,8 @@ const Widget = {
   getImagesForWidget,
   insertImagesForWidget,
   deleteImagesForWidget,
-  getWidgetSyncImages
+  getWidgetSyncImages,
+  getWidgetSyncSliderImages
 };
 
 export default Widget;

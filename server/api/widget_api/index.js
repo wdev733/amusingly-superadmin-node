@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getWidgetByKey } from './controller';
+import { getWidgetByKey, getWidgetSliderByKey } from './controller';
 
 const router = new Router();
 
@@ -10,5 +10,6 @@ const router = new Router();
  * @apiSuccess {Object} widget
  */
 router.get('/block', getWidgetByKey);
+router.get('/slider', getWidgetSliderByKey);
 
 export default router;
