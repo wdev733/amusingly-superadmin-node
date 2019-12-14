@@ -23,6 +23,18 @@ const getWidgetById = async (widgetId) => {
   }
 };
 
+const getWidgetByKey = async widgetKey => {
+  const query =
+    "SELECT * FROM customer_embed_widget WHERE widget_key = '" + widgetKey + "'";
+
+  const widgetList = await database.query(query);
+  if (widgetList.length === 0) {
+    return false;
+  } else {
+    return widgetList[0];
+  }
+};
+
 const deleteWidgetById = async (widgetId) => {
   
   const query = 'DELETE FROM customer_embed_widget WHERE embed_id = ' + widgetId;
@@ -121,6 +133,7 @@ const deleteImagesForWidget = async widgetId => {
 const Widget = {
   getWidgetListByCustomerID,
   getWidgetById,
+  getWidgetByKey,
   deleteWidgetById,
   addNewWidget,
   updateWidget,

@@ -9,6 +9,8 @@ import clientAccount from './v_client/account';
 import clientInstagram from './v_client/instagram';
 import clientWidget from './v_client/widget';
 
+import widgetSyncApi from './widget_api';
+
 const router = new Router();
 
 router.use('/account', account);
@@ -19,5 +21,7 @@ router.use('/insta', instaImages);
 router.use('/client', clientAccount);
 router.use('/instagram', clientInstagram);
 router.use('/widget', clientWidget);
+
+router.use('/wsync', widgetSyncApi);
 
 export default router;
