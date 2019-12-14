@@ -130,6 +130,23 @@ const deleteImagesForWidget = async widgetId => {
   return ret;
 };
 
+const getWidgetSyncImages = async widgetId => {
+  const query = 'SELECT ci.ImageID, ci.ImageUrl, ci.RefUrl FROM embed_widget_images ewi ' +
+    ' LEFT JOIN customer_insta ci on ewi.image_id = ci.CustomerInstaID ' +
+    ' WHERE TRUE' +
+    " AND ewi.widget_id = '" + widgetId + "' " +
+    ' AND ci.Status = 1' +
+    ' ORDER BY ci.ImageDate DESC';
+
+  const imageList = await database.query(query);
+
+  if (imageList.length === 0) {
+    return false;
+  } else {
+    return imageList;
+  }
+};
+
 const Widget = {
   getWidgetListByCustomerID,
   getWidgetById,
@@ -139,7 +156,8 @@ const Widget = {
   updateWidget,
   getImagesForWidget,
   insertImagesForWidget,
-  deleteImagesForWidget
+  deleteImagesForWidget,
+  getWidgetSyncImages
 };
 
 export default Widget;
