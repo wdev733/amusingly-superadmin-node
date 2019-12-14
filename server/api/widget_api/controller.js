@@ -46,7 +46,8 @@ export const getWidgetByKey = async (req, res) => {
           html += '<a href="' + imageList[i].RefUrl + '">';
         }
 
-        html += '<img src="' + siteUrl + 'resizecrop/' + imageList[i].ImageUrl + '" class="img-responsive" alt="' + imageList[i].ImageID + '">';
+        // html += '<img src="' + siteUrl + 'resizecrop/' + imageList[i].ImageUrl + '" class="img-responsive" alt="' + imageList[i].ImageID + '">';
+        html += '<img src="' + imageList[i].ImageInstaUrl + '" class="img-responsive" alt="' + imageList[i].ImageID + '">';
 
         if (imageList[i].RefUrl) {
           html += '</a>';

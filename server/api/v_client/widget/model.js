@@ -131,7 +131,7 @@ const deleteImagesForWidget = async widgetId => {
 };
 
 const getWidgetSyncImages = async widgetId => {
-  const query = 'SELECT ci.ImageID, ci.ImageUrl, ci.RefUrl FROM embed_widget_images ewi ' +
+  const query = 'SELECT ci.ImageID, ci.ImageUrl, ci.RefUrl, ci.ImageInstaUrl FROM embed_widget_images ewi ' +
     ' LEFT JOIN customer_insta ci on ewi.image_id = ci.CustomerInstaID ' +
     ' WHERE TRUE' +
     " AND ewi.widget_id = '" + widgetId + "' " +
