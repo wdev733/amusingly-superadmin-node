@@ -30,12 +30,13 @@ const deleteWidgetById = async (widgetId) => {
   return ret;
 };
 
-const addNewWidget = async (customer_id, customer_insta_id, backcolor, txtcolor, popup, socialsharing, widget_type,
-  widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width) => {
+const addNewWidget = async (widget_name, customer_id, customer_insta_id, backcolor, txtcolor, popup, socialsharing, widget_type,
+  widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width, widget_key) => {
 
-    const query = 'Insert into customer_embed_widget (customer_id, customer_insta_id, backcolor, txtcolor, popup, socialsharing,' +
-      'widget_type, widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width) value ' +
+    const query = 'Insert into customer_embed_widget (widget_name, customer_id, customer_insta_id, backcolor, txtcolor, popup, socialsharing,' +
+      'widget_type, widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width, widget_key) value ' +
     '(' +
+    "'" + widget_name + "', " +
     "'" + customer_id + "', " +
     "'" + customer_insta_id + "', " +
     "'" + backcolor + "', " +
@@ -50,18 +51,19 @@ const addNewWidget = async (customer_id, customer_insta_id, backcolor, txtcolor,
     "'" + layout_column + "', " +
     "'" + hover_effect + "', " +
     "'" + embed_padding + "', " +
-    "'" + embed_width + "'" +
+    "'" + embed_width + "', " +
+    "'" + widget_key + "'" +
     ')';
 
   const ret = await database.query(query);
   return ret.insertId;
-    
 };
 
-const updateWidget = async (embed_id, backcolor, txtcolor, popup, socialsharing, widget_type,
+const updateWidget = async (embed_id, widget_name, backcolor, txtcolor, popup, socialsharing, widget_type,
   widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width) => {
 
   let query = 'UPDATE customer_embed_widget SET ' +
+    "widget_name = '" + widget_name + "', " +
     "backcolor = '" + backcolor + "', " +
     "txtcolor = '" + txtcolor + "', " +
     "popup = '" + popup + "', " +
@@ -111,7 +113,7 @@ const insertImagesForWidget = async (widgetId, imageIdList) => {
 };
 
 const deleteImagesForWidget = async widgetId => {
-  const query = "DELETE FROM embed_widget_images embed_widget_images WHERE widget_id ='" + widgetId + "'";
+  const query = "DELETE FROM embed_widget_images WHERE widget_id ='" + widgetId + "'";
   const ret = await database.query(query);
   return ret;
 };

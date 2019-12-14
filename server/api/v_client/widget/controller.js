@@ -55,6 +55,7 @@ export const addNewWidget = async (req, res, next) => {
 
     const { widget, imageIds } = req.body;
     const {
+      widget_name,
       backcolor,
       txtcolor,
       popup,
@@ -67,11 +68,12 @@ export const addNewWidget = async (req, res, next) => {
       layout_column,
       hover_effect,
       embed_padding,
-      embed_width
+      embed_width,
+      widget_key
     } = widget;
 
-    const lastInsertId = await Widget.addNewWidget(customer.CustomerID, 0, backcolor, txtcolor, popup, socialsharing, widget_type, 
-      widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width);
+    const lastInsertId = await Widget.addNewWidget(widget_name, customer.CustomerID, 0, backcolor, txtcolor, popup, socialsharing, widget_type, 
+      widget_style, widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width, widget_key);
 
     if (lastInsertId > 0) {
       await Widget.insertImagesForWidget(lastInsertId, imageIds);
@@ -97,10 +99,10 @@ export const updateWidget = async (req, res, next) => {
 
     const { widget, imageIds } = req.body;
     
-    const { embed_id, backcolor, txtcolor, popup, socialsharing, widget_type, widget_style, widget_fullpage,
+    const { embed_id, widget_name, backcolor, txtcolor, popup, socialsharing, widget_type, widget_style, widget_fullpage,
       thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width } = widget;
 
-    await Widget.updateWidget(embed_id, backcolor, txtcolor, popup, socialsharing, widget_type, widget_style, 
+    await Widget.updateWidget(embed_id, widget_name, backcolor, txtcolor, popup, socialsharing, widget_type, widget_style, 
       widget_fullpage, thumbnail, layout_row, layout_column, hover_effect, embed_padding, embed_width);
 
     await Widget.deleteImagesForWidget(embed_id);
