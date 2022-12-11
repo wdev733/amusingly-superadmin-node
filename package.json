@@ -48,7 +48,7 @@
     "crypto": "^1.0.1",
     "cross-env": "^5.0.5",
     "dotenv-safe": "^4.0.3",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "express-force-ssl": "^0.3.2",
     "jsonwebtoken": "^8.1.0",
     "md5": "^2.2.1",
